@@ -59,6 +59,12 @@ parseDottedList = do
   tail <- char '.' >> spaces >> parseExpr
   return $ DottedList head tail
 
+parseQuoted::Parser LispVal
+parseQuoted = do
+  char '\''
+  x <- parseExpr
+  return $ List [Atom "quote", x]
+
 main::IO()
 main = do
   (expr:_) <- getArgs
