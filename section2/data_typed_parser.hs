@@ -51,9 +51,13 @@ spaces::Parser ()
 spaces = skipMany1 space
 
 parseList::Parser LispVal
-parseList = liftM List $ stepBy parserExpr spaces
+parseList = liftM List $ stepBy parseExpr spaces
 
-
+parseDottedList::Parser LispVal
+parseDottedList = do
+  head <- endBy parseExpr spaces
+  tail <- char '.' >> spaces >> parseExpr
+  return $ DottedList head tail
 
 main::IO()
 main = do
