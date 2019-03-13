@@ -47,13 +47,13 @@ readExper input = case parse parseExpr "lisp" input of
   Left err -> "No match:" ++ show err
   Right _ -> "found value"
 
--- spaces::Parser ()
--- spaces = skipMany1 space
+spaces::Parser ()
+spaces = skipMany1 space
 
--- readExper::String -> String
--- readExper input = case parse (spaces>>symbol) "lisp" input of
---   Left err -> "No match: " ++ show err
---   Right val -> "Found value " ++ show val
+parseList::Parser LispVal
+parseList = liftM List $ stepBy parserExpr spaces
+
+
 
 main::IO()
 main = do
