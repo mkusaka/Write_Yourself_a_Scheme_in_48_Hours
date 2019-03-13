@@ -41,6 +41,11 @@ parseExpr::Parser LispVal
 parseExpr = parseAtom
     <|> parseString
     <|> parseNumber
+    <|> parseQuoted
+    <|> do char '('
+        x <- try parseList <|> parseDottedList
+        char ')'
+        return x
 
 readExper::String -> String
 readExper input = case parse parseExpr "lisp" input of
