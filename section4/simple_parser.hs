@@ -151,4 +151,4 @@ main = do
     evaled <- return $ liftM show $ readExpr (args !! 0) >>= eval
     putStrLn $ extractValue $ trapError evaled
 
--- command: ghc -package parsec -o parser simple_parser.1.hs
+-- command: ghc -package parsec -o errorcheck simple_parser.hs
